@@ -76,16 +76,20 @@ public class AuthActivity extends AppCompatActivity {
     private void saveUserToFirestore() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Map<String, Object> user = new HashMap<>();
-        user.put("email", emailField);
-        user.put("password", passwordField);
+        user.put("email", emailField.getText().toString()); // Исправлено
+        user.put("password", passwordField.getText().toString()); // Исправлено
         user.put("role", "user");
-        db.collection("users").document(auth.getCurrentUser().getUid()).
-                set(user).addOnSuccessListener(v -> {
+
+        db.collection("users").document(auth.getCurrentUser().getUid())
+                .set(user)
+                .addOnSuccessListener(v -> {
                     Toast.makeText(AuthActivity.this, "Данные пользователя успешно сохранены", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(AuthActivity.this, MainActivity.class));
                     finish();
-                }).addOnFailureListener(e -> {
-                    Toast.makeText(AuthActivity.this, "Данные пользователя не сохранены" + e.getMessage(), Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(AuthActivity.this, "Данные пользователя не сохранены: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.e("FirestoreError", "Ошибка сохранения данных", e); // Логируем ошибку
                 });
     }
 
