@@ -115,10 +115,10 @@ public class AuthActivity extends AppCompatActivity {
                 if (role!=null) {
                     switch (role) {
                         case "admin":
-                            //startActivity(new Intent(AuthActivity.this, AdminActivity.class));
+                            startActivity(new Intent(AuthActivity.this, AdminActivity.class));
                             break;
                         case "employee":
-                            //startActivity(new Intent(AuthActivity.this, EmpActivity.class));
+                            startActivity(new Intent(AuthActivity.this, emp_activity.class));
                             break;
                         case "user":
                             startActivity(new Intent(AuthActivity.this, UserActivity.class));
